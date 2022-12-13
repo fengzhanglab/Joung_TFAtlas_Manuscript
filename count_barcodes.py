@@ -1,3 +1,5 @@
+#counts TF barcodes from fastq for bulk TF screening
+
 from Bio import SeqIO
 import csv
 from collections import OrderedDict
@@ -12,10 +14,10 @@ KEY = "GAAAGGACGA" #identifies sequence before barcode to determine barcode posi
 
 def count_barcodes(input_file, fastq_file, output_file): 
 	"""
-	creates a dictionary with barcode counts from fastq_file, writes to output_file
+	reads barcodes from input_file, creates a dictionary with barcode counts from fastq_file, writes to output_file
+	dictionary: csv file of all possible barcodes with 1 barcode per line
 	fastq_file: forward read fastq file
-	output_file: csv file to write barcode dictionary to
-	dictionary: barcode sequence as key, barcode count as entry
+	output_file: csv file to write barcode counts to
 	"""
 
 	num_reads = 0 #total number of reads processed
