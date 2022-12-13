@@ -12,12 +12,12 @@ KEY_REGION_END = 50 #end index of key region
 BARCODE_LENGTH = 24
 KEY = "GAAAGGACGA" #identifies sequence before barcode to determine barcode position
 
-def count_barcodes(input_file, fastq_file, output_file): 
+def count_barcodes(input_file, fastq_file, output_prefix): 
 	"""
-	reads barcodes from input_file, creates a dictionary with barcode counts from fastq_file, writes to output_file
+	reads barcodes from input_file, creates a dictionary with barcode counts from fastq_file, writes results to files with output_prefix
 	dictionary: csv file of all possible barcodes with 1 barcode per line
 	fastq_file: forward read fastq file
-	output_file: csv file to write barcode counts to
+	output_prefix: prefix of files to write barcode count results to
 	"""
 
 	num_reads = 0 #total number of reads processed
@@ -60,7 +60,7 @@ def count_barcodes(input_file, fastq_file, output_file):
 
 	# create ordered dictionary with barcodes and respective counts and output as a csv file                      
 	dict_sorted = OrderedDict(sorted(dictionary.items(), key=lambda t: t[0]))
-	with open(output_file + '_counts.csv', 'w') as csvfile:
+	with open(output_prefix + '_counts.csv', 'w') as csvfile:
 		mywriter = csv.writer(csvfile, delimiter=',')
 		for barcode in dict_sorted:
 			count = dict_sorted[barcode]
@@ -82,7 +82,7 @@ def count_barcodes(input_file, fastq_file, output_file):
 		skew_ratio = 'Not enough perfect matches to determine skew ratio'
 
 	# write analysis statistics to statistics.txt
-	with open(output_file + '_stats.txt', 'w') as infile:
+	with open(output_prefix + '_stats.txt', 'w') as infile:
 		infile.write('Number of perfect barcode matches: ' + str(perfect_matches) + '\n')
 		infile.write('Number of nonperfect barcode matches: ' + str(non_perfect_matches) + '\n')
 		infile.write('Number of reads where key was not found: ' + str(key_not_found) + '\n')
@@ -101,10 +101,10 @@ if __name__ == '__main__':
 		description='Analyze sequencing data for sgRNA library distribution')
 	parser.add_argument('-f', '--fastq', type=str, dest='fastq_file',
 						help='fastq file name', default='NGS.fastq')
-	parser.add_argument('-o', '--output', type=str, dest='output_file',
+	parser.add_argument('-o', '--output', type=str, dest='output_prefix',
 						help='output file prefix', default='library')
 	parser.add_argument('-i', '--input', type=str, dest='input_file',
 						help='input file name', default='library_sequences.csv')
 	args = parser.parse_args()
 
-	count_barcodes(args.input_file, args.fastq_file, args.output_file)
+	count_barcodes(args.input_file, args.fastq_file, args.output_prefix)
