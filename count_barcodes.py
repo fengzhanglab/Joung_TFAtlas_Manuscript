@@ -16,7 +16,7 @@ def count_barcodes(input_file, fastq_file, output_prefix):
 	"""
 	reads barcodes from input_file, creates a dictionary with barcode counts from fastq_file, writes results to files with output_prefix
 	input_file: csv file of all possible barcodes with 1 barcode per line
-	fastq_file: forward read fastq file
+	fastq_file: read 1 fastq file
 	output_prefix: prefix of files to write barcode count results to
 	"""
 
