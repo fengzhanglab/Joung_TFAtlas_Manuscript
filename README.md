@@ -12,9 +12,9 @@ Scripts from the Joung et al Cell 2023 manuscript on a Transcription Factor Atla
 - count_barcodes_10X.py counts TF barcodes from fastq
   - tf_input_file: csv file of all possible TF barcodes with 1 barcode per line
   - cell_input_file: csv file of all possible cell barcodes with 1 barcode per line
-	- r1_fastq_file: read 1 fastq file
-	- r2_fastq_file: read 2 fastq file
-	- output_prefix: prefix of files to write barcode count results to
+  - r1_fastq_file: read 1 fastq file
+  - r2_fastq_file: read 2 fastq file
+  - output_prefix: prefix of files to write barcode count results to
 - map_cells_10X.py maps TF isoforms to cells using the counts_cells.csv file from the count_barcodes_10X.py output
   - ORF_lib_barcode_map.csv: csv file of TF ORF barcode mapping to TF isoforms. Each line contains a TF barcode followed by the corresponding TF isoform
   - counts_cells.csv: csv file of cell barcode mapping to TF ORF barcodes. Each line contains a cell barcode followed by TF barcodes and associated 
